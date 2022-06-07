@@ -1,0 +1,9 @@
+.item {
+  list-style: none;
+}
+
+.item__wrapper {
+  display: flex;
+  
+  
+}
