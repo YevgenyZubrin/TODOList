@@ -1,10 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import AddItemForm from './components/AddItemForm/AddItemForm'
+import './App.css'
+import { List } from './components/List'
 
-function App() {
+// const list = [
+//   { id: 1, isActive: true, title: 'сделать что нибудь полезное', index: 1 },
+// ]
+
+const App = () => {
+  const todoList = [...useSelector((state) => state.todoList)]
+  const makeIdList = () => {
+    const idList = []
+
+    todoList.forEach((item) => {
+      idList.push(item.id)
+    })
+
+    return idList
+  }
+  console.log(todoList)
+  const [isAddMode, setIsAddMode] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const onAddHandler = () => {
+    setIsAddMode(true)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      {isAddMode ? (
+        <AddItemForm
+          idList={makeIdList()}
+          dispatch={dispatch}
+          setIsAddMode={setIsAddMode}
+        />
+      ) : (
+        <button onClick={onAddHandler}>Добавить действие</button>
+      )}
+      <List dispatch={dispatch} list={todoList} />
+
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,9 +55,9 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -60,13 +60,22 @@ const todoListReducer = (state = initialState, action) => {
       return { ...state, todoList: [...todoListAfterEdit] }
 
     case TOGGLE_TODO_ITEM:
-      const todoListWithToggledItem = [...state.todoList]
-      todoListWithToggledItem.forEach((item) => {
+      console.log('toggle')
+      const tempTodoList = [...state.todoList]
+      tempTodoList.forEach((item) => {
         if (item.id === action.id) {
           item.isActive = !item.isActive
         }
       })
-      return { ...state, todoList: [...todoListWithToggledItem] }
+      console.log(tempTodoList)
+      return { ...state, todoList: [...tempTodoList] }
+    // const todoListWithToggledItem = [...state.todoList]
+    // todoListWithToggledItem.forEach((item) => {
+    //   if (item.id === action.id) {
+    //     item.isActive = !item.isActive
+    //   }
+    // })
+    // return { ...state, todoList: [...todoListWithToggledItem] }
 
     default:
       return state
